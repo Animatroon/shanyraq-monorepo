@@ -1,0 +1,99 @@
+@use 'sass:color';
+@use 'sass:math';
+
+
+$color-primary: #6CA37C;
+
+// Акцентный цвет (для выделения ссылок, текста, небольших элементов)
+$color-accent: #659DBD;
+
+// Цвет кнопок, форм, элементов взаимодействия
+$color-button: #DAAD86;
+$color-button-hover: #BC986A;
+
+// Фоновый цвет всего приложения
+$color-background: #F7EFE6;
+
+// Нейтральные цвета
+$color-white: #FFFFFF;
+$color-gray-light: #b0b0b0;
+$color-gray-dark: #4A4A4A;
+$color-black: #333333;
+
+$font-primary: 'Inter', sans-serif;
+$font-size-base: 16px;
+$font-size-sm: 14px;
+$font-size-lg: 20px;
+$line-height: 1.5;
+
+
+// Размеры и отступы
+$spacing-unit: 8px;
+$border-radius: 8px;
+$shadow-standard: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+
+
+// @mixin button-primary {
+//   background-color: $color-button;
+//   color: $color-white;
+//   border: none;
+//   border-radius: $border-radius;
+//   padding: $spacing-unit $spacing-unit * 2;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease;
+
+//   &:hover {
+//     background-color: $color-button-hover;
+//   }
+// }
+
+// @mixin icon-primary {
+//   color: $color-primary;
+//   transition: color 0.2s ease;
+
+//   &:hover {
+//     color: darken($color-primary, 10%);
+//   }
+// }
+
+// @mixin loader-primary {
+//   border: 4px solid lighten($color-primary, 30%);
+//   border-top-color: $color-primary;
+//   border-radius: 50%;
+//   width: 40px;
+//   height: 40px;
+//   animation: spin 0.8s linear infinite;
+// }
+
+// @keyframes spin {
+//   to { transform: rotate(360deg); }
+// }
+
+
+
+
+
+
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Миксин для адаптива
+@mixin respond($breakpoint) {
+  @if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  }
+  @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  }
+  @else if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  }
+  @else if $breakpoint == xl {
+    @media (max-width: $breakpoint-xl) { @content; }
+  }
+}

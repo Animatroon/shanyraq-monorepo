@@ -1,0 +1,35 @@
+@use '../../styles/variables' as *;
+
+.skeletonCard {
+  background-color: #f2f2f2;
+  animation: pulse 1.2s infinite ease-in-out;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: $shadow-standard;
+}
+
+.skeletonImage {
+  height: 200px;
+  background: #ddd;
+}
+
+.skeletonInfo {
+  padding: 16px;
+}
+
+.skeletonText {
+  height: 18px;
+  background: #ccc;
+  margin-bottom: 12px;
+  border-radius: 4px;
+
+  &.short {
+    width: 50%;
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}

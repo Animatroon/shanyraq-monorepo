@@ -1,0 +1,38 @@
+@use 'reset';
+@use 'variables' as *;
+@use 'animations' as *;
+
+body {
+  font-family: $font-primary;
+  background-color: $color-background;
+  color: $color-black;
+  font-size: $font-size-base;
+  line-height: $line-height;
+  overscroll-behavior-y: none;
+}
+
+.soft-shadow {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+  width: 100%;
+}
+
+body, html, #root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainfull {
+  flex: 1;
+}

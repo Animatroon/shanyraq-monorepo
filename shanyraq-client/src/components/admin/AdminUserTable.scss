@@ -1,0 +1,189 @@
+@use '../../styles/variables' as *;
+@use '../../styles/animations' as *;
+
+.admin-user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: $spacing-unit * 2;
+    background-color: $color-white;
+    box-shadow: $shadow-standard;
+    border-radius: $border-radius;
+    overflow: hidden; // Ensures border-radius applies to table contents
+
+    thead {
+        background-color: lighten($color-primary, 45%); // Lighter primary shade
+        color: darken($color-primary, 15%);
+        font-weight: 600;
+        text-align: left;
+
+        th {
+            padding: $spacing-unit * 1.5 $spacing-unit * 2;
+            border-bottom: 2px solid $color-primary;
+        }
+    }
+
+    tbody {
+        tr {
+            border-bottom: 1px solid darken($color-background, 10%);
+            transition: background-color 0.2s ease;
+            animation: softAppear 0.3s ease-out forwards;
+             opacity: 0;
+             animation-delay: calc(var(--index) * 0.05s); // Stagger animation
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                background-color: darken($color-background, 3%);
+            }
+
+            &.blacklisted {
+                background-color: lighten(desaturate(tomato, 30%), 25%); // Muted red background
+                color: darken(tomato, 20%);
+                font-style: italic;
+
+                &:hover {
+                    background-color: lighten(desaturate(tomato, 30%), 20%);
+                }
+                 .status-blacklisted {
+                     color: darken(tomato, 10%);
+                     font-weight: 600;
+                 }
+                 .action-button.unban button { // Target button inside component
+                      background-color: $color-accent; // Blue for unban
+                      &:hover:not(:disabled) { background-color: darken($color-accent, 10%); }
+                 }
+            }
+
+            td {
+                padding: $spacing-unit * 1.5 $spacing-unit * 2;
+                vertical-align: middle;
+                color: $color-gray-dark;
+                font-size: $font-size-sm;
+
+                .status-active {
+                    color: $color-primary;
+                    font-weight: 500;
+                }
+                .status-blacklisted {
+                     color: tomato;
+                     font-weight: 500;
+                 }
+
+                .action-button {
+                    .button-component { // Target potential wrapper
+                        button { // Target the actual button
+                            padding: $spacing-unit * 0.75 $spacing-unit * 1.25;
+                            font-size: $font-size-sm * 0.9;
+                            color: $color-white;
+                            border-radius: $border-radius / 2;
+                            transition: background-color 0.2s ease, opacity 0.2s ease;
+                            min-width: 80px;
+                            text-align: center;
+
+                            &.ban {
+                                background-color: darken(tomato, 5%);
+                                &:hover:not(:disabled) { background-color: darken(tomato, 15%); }
+                            }
+
+                            &.unban {
+                                background-color: $color-accent;
+                                &:hover:not(:disabled) { background-color: darken($color-accent, 10%); }
+                            }
+
+                            &:disabled {
+                                background-color: $color-gray-light;
+                                cursor: wait;
+                                opacity: 0.7;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Responsive Handling (Optional but Recommended)
+    @include respond(md) {
+        thead {
+            display: none; // Hide table header on smaller screens
+        }
+        tr {
+            display: block;
+            margin-bottom: $spacing-unit * 2;
+            border-bottom: 2px solid $color-primary;
+            border-radius: $border-radius;
+             box-shadow: $shadow-standard;
+             background-color: $color-white; // Ensure background consistency
+             &.blacklisted { background-color: lighten(desaturate(tomato, 30%), 25%); }
+             &:hover { background-color: $color-white; } // Disable row hover
+             &.blacklisted:hover { background-color: lighten(desaturate(tomato, 30%), 25%); }
+        }
+        td {
+            display: flex;
+            justify-content: space-between; // Label on left, value on right
+            padding: $spacing-unit $spacing-unit * 1.5;
+            border-bottom: 1px dotted darken($color-background, 15%);
+            text-align: right; // Align value to the right
+            position: relative;
+            font-size: $font-size-base; // Slightly larger font on mobile
+
+            &::before { // Add label using data-label attribute
+                content: attr(data-label);
+                font-weight: 600;
+                text-align: left; // Align label to the left
+                margin-right: $spacing-unit * 2;
+                color: $color-black;
+                 white-space: nowrap;
+            }
+            &:last-child {
+                 border-bottom: none;
+            }
+            // Ensure buttons stack or align well
+            &[data-label="Действия"] {
+                 justify-content: flex-end; // Align button to the right
+                 &::before { flex-grow: 1; } // Push button right
+            }
+        }
+    }
+}
+
+// Styles for the reason prompt within the AlertModal
+.reason-prompt {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-unit * 1.5;
+    padding: $spacing-unit; // Add some padding inside the modal
+
+    h4 {
+        margin-bottom: $spacing-unit;
+        color: $color-black;
+        text-align: center;
+    }
+
+    .input-component input { // Style the input inside
+        width: 100%;
+    }
+
+    .reason-prompt-actions {
+        display: flex;
+        justify-content: flex-end; // Align buttons to the right
+        gap: $spacing-unit;
+        margin-top: $spacing-unit * 1.5;
+
+        .button-component button {
+            padding: $spacing-unit $spacing-unit * 2;
+            &.cancel-btn {
+                background-color: $color-gray-light;
+                color: $color-black;
+                &:hover { background-color: darken($color-gray-light, 10%); }
+            }
+            &.confirm-btn {
+                background-color: darken(tomato, 5%); // Use ban color
+                color: $color-white;
+                 &:hover { background-color: darken(tomato, 15%); }
+            }
+        }
+    }
+}

@@ -1,0 +1,36 @@
+// src/components/admin/AdminPagination.scss
+@use '../../styles/variables' as *; // Импортируем переменные
+
+.admin-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 0; // Отступы сверху и снизу
+  gap: 15px; // Расстояние между элементами
+
+  .pagination-info {
+    color: $color-gray-dark;
+    font-size: $font-size-sm;
+    min-width: 100px; // Чтобы текст не прыгал при изменении числа страниц
+    text-align: center;
+  }
+
+  // Стили для кнопок пагинации (используем твой .custom-button)
+  .pagination-button {
+    // Наследуем стили .custom-button из button.scss
+    // Можно добавить специфичные стили, если нужно
+    padding: 6px 15px; // Уменьшаем паддинги
+    font-size: $font-size-sm; // Уменьшаем шрифт
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background-color: $color-gray-light; // Цвет неактивной кнопки
+      border-color: $color-gray-light; // Цвет рамки неактивной кнопки
+      color: darken($color-gray-light, 20%);
+       &:hover {
+           background-color: $color-gray-light; // Убираем hover эффект для disabled
+       }
+    }
+  }
+}

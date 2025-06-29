@@ -1,0 +1,24 @@
+@use '../../../styles/variables' as *;
+
+.role-switch {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-unit * 2;
+  margin-bottom: $spacing-unit * 3;
+
+  button {
+    padding: $spacing-unit $spacing-unit * 2;
+    border-radius: 10px;
+    border: none;
+    background-color: $color-gray-light;
+    color: $color-black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &.active {
+      background-color: $color-primary;
+      color: $color-white;
+    }
+  }
+}

@@ -1,0 +1,67 @@
+@use '../../../styles/variables' as *;
+@use 'sass:color';
+
+.auth-page {
+  background-color: $color-background;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: $spacing-unit * 4;
+
+  .auth-card {
+    background-color: $color-white;
+    padding: $spacing-unit * 4;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: $spacing-unit * 2;
+      text-align: center;
+      color: $color-black;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-unit * 2;
+
+      label {
+        font-weight: 600;
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      input {
+        padding: $spacing-unit;
+        border: 1px solid $color-gray-light;
+        border-radius: 10px;
+        font-size: 16px;
+      }
+
+      button {
+        background-color: $color-primary;
+        color: $color-white;
+        padding: $spacing-unit * 1.5;
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: color.scale($color-primary, $lightness: -10%);
+        }
+      }
+
+      .error {
+        color: green;
+        font-size: 14px;
+        margin-top: $spacing-unit;
+      }
+    }
+  }
+}

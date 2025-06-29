@@ -1,0 +1,113 @@
+@use '../../styles/variables' as *;
+@use '../../styles/animations' as *;
+
+.admin-complaint-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: $spacing-unit * 2;
+    background-color: $color-white;
+    box-shadow: $shadow-standard;
+    border-radius: $border-radius;
+    overflow: hidden;
+
+    thead {
+        background-color: lighten($color-primary, 45%);
+        color: darken($color-primary, 15%);
+        font-weight: 600;
+        text-align: left;
+
+        th {
+            padding: $spacing-unit * 1.5 $spacing-unit * 2;
+            border-bottom: 2px solid $color-primary;
+        }
+    }
+
+    tbody {
+        tr {
+            border-bottom: 1px solid darken($color-background, 10%);
+            transition: background-color 0.2s ease;
+            animation: softAppear 0.3s ease-out forwards;
+             opacity: 0;
+             animation-delay: calc(var(--index) * 0.05s);
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                background-color: darken($color-background, 3%);
+            }
+
+            td {
+                padding: $spacing-unit * 1.5 $spacing-unit * 2;
+                vertical-align: middle;
+                color: $color-gray-dark;
+                font-size: $font-size-sm;
+
+                .select-component { // Target Select component wrapper
+                    select {
+                        padding: $spacing-unit * 0.75 $spacing-unit * 1;
+                        border-radius: $border-radius / 2;
+                        border: 1px solid $color-gray-light;
+                        background-color: $color-white;
+                        cursor: pointer;
+                        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+                        &:hover {
+                            border-color: $color-gray-dark;
+                        }
+
+                        &:focus {
+                            outline: none;
+                            border-color: $color-primary;
+                            box-shadow: 0 0 0 2px rgba($color-primary, 0.2);
+                        }
+
+                        &:disabled {
+                            background-color: darken($color-background, 5%);
+                            cursor: wait;
+                            opacity: 0.7;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // Responsive Handling (Similar to UserTable)
+    @include respond(md) {
+         thead { display: none; }
+         tr {
+             display: block;
+             margin-bottom: $spacing-unit * 2;
+             border-bottom: 2px solid $color-primary;
+             border-radius: $border-radius;
+             box-shadow: $shadow-standard;
+             background-color: $color-white;
+              &:hover { background-color: $color-white; }
+         }
+         td {
+             display: flex;
+             justify-content: space-between;
+             padding: $spacing-unit $spacing-unit * 1.5;
+             border-bottom: 1px dotted darken($color-background, 15%);
+             text-align: right;
+             position: relative;
+             font-size: $font-size-base;
+
+             &::before {
+                 content: attr(data-label);
+                 font-weight: 600;
+                 text-align: left;
+                 margin-right: $spacing-unit * 2;
+                 color: $color-black;
+                 white-space: nowrap;
+             }
+             &:last-child { border-bottom: none; }
+
+              &[data-label="Действия"] {
+                 justify-content: flex-end;
+                 &::before { flex-grow: 1; }
+             }
+         }
+     }
+}

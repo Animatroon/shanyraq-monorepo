@@ -1,0 +1,17 @@
+@use '../../../styles/variables' as *;
+@use 'sass:color';
+
+
+.custom-button {
+    border: 1px solid #D8D8D8;
+    border-radius: 10px;
+    transition: border 0.3s ease;
+    font-size: 16px;
+    background-color: $color-primary;
+    color: white;
+    width: 100%;
+    padding: $spacing-unit * 1.5;
+    &:hover {
+        background-color: color.scale($color-primary, $lightness: -10%);
+    }
+}
