@@ -1,13 +1,19 @@
-import mongoose from "mongoose";
-import { MONGO_URI } from "../config/env";
+import dotenv from "dotenv";
+dotenv.config();
+
+import { Pool } from 'pg';
+
+const pool = new Pool({
+  connectionString: process.env.POSTGRES_URI || '',
+});
 
 export const connectDB = async () => {
   try {
-    await mongoose.connect(MONGO_URI, {
-      dbName: "houseServise",
-    });
-    console.log("База данных подключена");
+    await pool.connect();
+    console.log('Connected to PostgreSQL database');
   } catch (error) {
-    console.error("Ошибка подключения к базе данных:", error);
+    console.error('Error connecting to PostgreSQL database:', error);
   }
 };
+
+export default pool;

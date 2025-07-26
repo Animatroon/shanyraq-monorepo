@@ -1,7 +1,0 @@
-.env
-test
-node_modules
-build
-dist
-test.ts
-anuar-test

@@ -1,50 +1,19 @@
-import express from 'express'
-import { connectDB } from './DB'
-import { PORT } from './config/env'
-import router from './router'
-import cookieParser from "cookie-parser";
-import cors from 'cors'
-import "reflect-metadata";
+import express from "express";
+import chatRoutes from "./chat/endpoint/index";
+import { connectDB } from "./db/index";
 
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-
-
-const app = express()
-const allowedOrigins = [
-    'http://localhost:3000',
-    'https://shanyraq.com.kz'
-];
-
-app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, origin);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-}));
-  
-app.options('*', cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, origin);
-        } else {
-        callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-}));
-app.use(cookieParser())
 app.use(express.json());
-app.use('/api',router)
+app.use("/chat", chatRoutes);
 
+const startServer = async () => {
+  await connectDB();
+  app.listen(PORT, () => {
+    console.log(`Server is running on ${PORT}`);
+  });
+};
 
-const main = () => {
-    app.listen(PORT,() => {
-        console.log(`сервер запущен на порту: ${PORT}`)
-    })
-}
+startServer();
 
-connectDB().then(main)
