@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+
+  api-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.multistage
+      target: development
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=shanyraq_dev
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app
+      - /app/node_modules  
+    networks:
+      - shanyraq-dev-network
+    command: npm run dev
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: shanyraq_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"  
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    networks:
+      - shanyraq-dev-network
+
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - shanyraq-dev-network
+
+volumes:
+  postgres_dev_data:
+
+networks:
+  shanyraq-dev-network:
+    driver: bridge

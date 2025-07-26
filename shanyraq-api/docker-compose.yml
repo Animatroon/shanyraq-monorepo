@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=shanyraq
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+    depends_on:
+      - postgres
+    volumes:
+      - ./src:/app/src
+    networks:
+      - shanyraq-network
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: shanyraq
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  
+    networks:
+      - shanyraq-network
+
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - shanyraq-network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  shanyraq-network:
+    driver: bridge
